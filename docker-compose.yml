@@ -3,5 +3,8 @@ version: "3.4"
 services:
   demo:
     build: .
+    environment:
+      - CODESCOPE_APIKEY
+      - CODESCOPE_SERVICE=demo
     ports:
       - "8000:8000"
