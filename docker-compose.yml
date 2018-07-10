@@ -5,6 +5,7 @@ services:
     build: .
     environment:
       - CODESCOPE_APIKEY
+      - CODESCOPE_ENVIRONMENT
       - CODESCOPE_SERVICE=demo
     ports:
       - "8000:8000"
