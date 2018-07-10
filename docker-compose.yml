@@ -1,11 +1,27 @@
 version: "3.4"
 
 services:
-  demo:
+  frontend:
     build: .
     environment:
       - CODESCOPE_APIKEY
       - CODESCOPE_ENVIRONMENT
-      - CODESCOPE_SERVICE=demo
+      - CODESCOPE_SERVICE=demo/frontend
+      - REDIS_HOST=redis
     ports:
       - "8000:8000"
+    command: codescope-run gunicorn demo.wsgi -b 0.0.0.0:8000
+    links:
+     - redis
+  worker:
+    build: .
+    environment:
+      - CODESCOPE_APIKEY
+      - CODESCOPE_ENVIRONMENT
+      - CODESCOPE_SERVICE=demo/worker
+      - REDIS_HOST=redis
+    command: codescope-run celery -A demo worker -l info
+    links:
+      - redis
+  redis:
+    image: redis

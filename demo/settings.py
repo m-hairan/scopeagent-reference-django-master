@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'demo',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CELERY_BROKER_URL = 'redis://%s:6379/' % os.getenv('REDIS_HOST', 'localhost')
+CELERY_RESULT_BACKEND = 'redis://%s:6379/' % os.getenv('REDIS_HOST', 'localhost')
