@@ -1,27 +1,45 @@
 version: "3.4"
 
 services:
-  frontend:
-    build: .
+  edge:
+    image: envoyproxy/envoy:latest
+    volumes:
+      - "./envoy.yaml:/etc/envoy.yaml:ro"
+    command: envoy -c /etc/envoy.yaml
+    ports:
+      - "8000:80"
+    links:
+      - api
+      - ui
+
+  ui:
+    image: nginx:latest
+    volumes:
+      - "./build:/usr/share/nginx/html:ro"
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
     environment:
       - CODESCOPE_APIKEY
       - CODESCOPE_ENVIRONMENT
       - CODESCOPE_SERVICE=demo/frontend
       - REDIS_HOST=redis
-    ports:
-      - "8000:8000"
-    command: codescope-run gunicorn demo.wsgi -b 0.0.0.0:8000
     links:
      - redis
+
   worker:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
     environment:
       - CODESCOPE_APIKEY
       - CODESCOPE_ENVIRONMENT
       - CODESCOPE_SERVICE=demo/worker
       - REDIS_HOST=redis
-    command: codescope-run celery -A demo worker -l info
     links:
       - redis
+
   redis:
     image: redis
