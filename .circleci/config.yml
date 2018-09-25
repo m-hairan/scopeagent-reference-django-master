@@ -48,4 +48,4 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            python -m unittest discover
+            codescope-run python -m unittest discover
