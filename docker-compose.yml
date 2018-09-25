@@ -24,7 +24,8 @@ services:
     environment:
       - CODESCOPE_APIKEY
       - CODESCOPE_ENVIRONMENT
-      - CODESCOPE_SERVICE=demo/frontend
+      - CODESCOPE_API_ENDPOINT
+      - CODESCOPE_SERVICE=frontend
       - REDIS_HOST=redis
     links:
      - redis
@@ -36,7 +37,8 @@ services:
     environment:
       - CODESCOPE_APIKEY
       - CODESCOPE_ENVIRONMENT
-      - CODESCOPE_SERVICE=demo/worker
+      - CODESCOPE_API_ENDPOINT
+      - CODESCOPE_SERVICE=worker
       - REDIS_HOST=redis
     links:
       - redis
