@@ -1,7 +1,7 @@
 amqp==2.3.2
 billiard==3.5.0.4
 celery==4.2.1
-codescope==0.1.14
+codescope==0.1.15
 Django==2.0.7
 gunicorn==19.9.0
 kombu==4.2.1
