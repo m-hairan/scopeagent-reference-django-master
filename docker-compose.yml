@@ -18,9 +18,8 @@ services:
       - "./build:/usr/share/nginx/html:ro"
 
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile.api
+    build: .
+    command: ["codescope-run", "gunicorn", "demo.wsgi", "-b", "0.0.0.0:8000"]
     environment:
       - CODESCOPE_APIKEY
       - CODESCOPE_ENVIRONMENT
@@ -31,9 +30,8 @@ services:
      - redis
 
   worker:
-    build:
-      context: .
-      dockerfile: Dockerfile.worker
+    build: .
+    command: ["codescope-run", "celery", "-A", "demo", "worker", "-l", "info"]
     environment:
       - CODESCOPE_APIKEY
       - CODESCOPE_ENVIRONMENT
