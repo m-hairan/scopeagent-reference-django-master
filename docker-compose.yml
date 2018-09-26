@@ -9,7 +9,7 @@ services:
     ports:
       - "8000:80"
     links:
-      - api
+      - frontend
       - ui
 
   ui:
@@ -17,7 +17,7 @@ services:
     volumes:
       - "./build:/usr/share/nginx/html:ro"
 
-  api:
+  frontend:
     build: .
     command: ["codescope-run", "gunicorn", "demo.wsgi", "-b", "0.0.0.0:8000"]
     environment:
