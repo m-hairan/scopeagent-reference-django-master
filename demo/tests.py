@@ -4,6 +4,7 @@ import unittest
 
 import codescope
 import opentracing
+import requests
 
 from demo.tasks import hello_world
 
@@ -32,6 +33,10 @@ class UnitTests(unittest.TestCase):
                 logger.info("finishing second step first substep")
             time.sleep(0.5)
             logger.info("finishing second step")
+
+    def test_with_http_request(self):
+        r = requests.get('https://ifconfig.co')
+        r.raise_for_status()
 
 
 class LiveTests(codescope.testing.TestCase):
