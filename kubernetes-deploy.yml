@@ -30,6 +30,8 @@ spec:
           value: ${CODESCOPE_APIKEY}
         - name: CODESCOPE_ENVIRONMENT
           value: ${CODESCOPE_ENVIRONMENT}
+        - name: REDIS_HOST
+          value: demo-django-redis
 ---
 apiVersion: v1
 kind: Service
@@ -46,3 +48,76 @@ spec:
   selector:
     app: demo-django
     tier: frontend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-django-worker
+  labels:
+    app: demo-django
+    tier: worker
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo-django
+      tier: worker
+  template:
+    metadata:
+      labels:
+        app: demo-django
+        tier: worker
+    spec:
+      containers:
+      - name: worker
+        image: codescope/demo-django:${COMMIT}
+        command: ["codescope-run", "celery", "-A", "demo", "worker", "-l", "info"]
+        env:
+        - name: CODESCOPE_SERVICE
+          value: worker
+        - name: CODESCOPE_APIKEY
+          value: ${CODESCOPE_APIKEY}
+        - name: CODESCOPE_ENVIRONMENT
+          value: ${CODESCOPE_ENVIRONMENT}
+        - name: REDIS_HOST
+          value: demo-django-redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-django-redis
+  labels:
+    app: demo-django
+    tier: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-django
+      tier: redis
+  template:
+    metadata:
+      labels:
+        app: demo-django
+        tier: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:latest
+        ports:
+        - containerPort: 6379
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: demo-django-redis
+  labels:
+    app: demo-django
+    tier: redis
+spec:
+  selector:
+    app: demo-django
+    tier: redis
+  ports:
+  - protocol: TCP
+    port: 6379
