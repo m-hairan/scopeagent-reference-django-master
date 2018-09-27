@@ -29,3 +29,5 @@ jobs:
       - run: docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
       - run: docker build -t codescope/demo-django:$(git rev-parse HEAD) .
       - run: docker push codescope/demo-django:$(git rev-parse HEAD)
+      - run: docker build -t codescope/demo-django-ui:$(git rev-parse HEAD) -f ui.Dockerfile .
+      - run: docker push codescope/demo-django-ui:$(git rev-parse HEAD)

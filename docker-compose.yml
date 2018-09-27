@@ -1,23 +1,16 @@
 version: "3.4"
 
 services:
-  edge:
-    image: envoyproxy/envoy:latest
-    volumes:
-      - "./envoy.yaml:/etc/envoy.yaml:ro"
-    command: envoy -c /etc/envoy.yaml
+  demo-django-ui:
+    build:
+      dockerfile: ui.Dockerfile
+      context: .
     ports:
       - "8000:80"
     links:
-      - frontend
-      - ui
+      - demo-django-frontend
 
-  ui:
-    image: nginx:latest
-    volumes:
-      - "./build:/usr/share/nginx/html:ro"
-
-  frontend:
+  demo-django-frontend:
     build: .
     command: ["codescope-run", "gunicorn", "demo.wsgi", "-b", "0.0.0.0:8000"]
     environment:
@@ -29,7 +22,7 @@ services:
     links:
      - redis
 
-  worker:
+  demo-django-worker:
     build: .
     command: ["codescope-run", "celery", "-A", "demo", "worker", "-l", "info"]
     environment:
