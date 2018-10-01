@@ -14,6 +14,7 @@ services:
     build: .
     command: ["codescope-run", "gunicorn", "demo.wsgi", "-b", "0.0.0.0:8000"]
     environment:
+      - CI
       - CODESCOPE_APIKEY
       - CODESCOPE_ENVIRONMENT
       - CODESCOPE_API_ENDPOINT
@@ -26,6 +27,7 @@ services:
     build: .
     command: ["codescope-run", "celery", "-A", "demo", "worker", "-l", "info"]
     environment:
+      - CI
       - CODESCOPE_APIKEY
       - CODESCOPE_ENVIRONMENT
       - CODESCOPE_API_ENDPOINT
@@ -36,3 +38,5 @@ services:
 
   redis:
     image: redis
+    ports:
+      - "6379:6379"

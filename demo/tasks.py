@@ -9,5 +9,5 @@ logger = logging.getLogger(__name__)
 
 @app.task
 @codescope.register()
-def hello_world():
-    return "hello world!"
+def ping():
+    return "pong"
