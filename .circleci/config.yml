@@ -6,30 +6,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
-          - v1-dependencies-
-      - run:
-          name: install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
       - setup_remote_docker
-      - run: CODESCOPE_ENVIRONMENT=CI docker-compose up -d
-      - run:
-          name: run tests
-          command: |
-            . venv/bin/activate
-            codescope-run --name worker python -m unittest discover -p "test*worker.py"
-            codescope-run --name frontend python -m unittest discover -p "test*frontend.py"
+      - run: COMMIT=$(git rev-parse HEAD) docker-compose up tests-worker
       - run: docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-      - run: docker build -t codescope/demo-django:$(git rev-parse HEAD) .
-      - run: docker push codescope/demo-django:$(git rev-parse HEAD)
-      - run: docker build -t codescope/demo-django-ui:$(git rev-parse HEAD) -f ui.Dockerfile .
-      - run: docker push codescope/demo-django-ui:$(git rev-parse HEAD)
+      - run: COMMIT=$(git rev-parse HEAD) docker-compose push demo-django-ui demo-django-frontend demo-django-worker
