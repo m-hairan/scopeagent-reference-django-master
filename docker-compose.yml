@@ -47,7 +47,7 @@ services:
   tests-worker:
     build: .
     image: codescope/demo-django:$COMMIT
-    command: ["codescope-run", "python", "-m", "unittest", "discover", "-p", "test*worker.py"]
+    command: ["codescope-run", "./manage.py", "test", "-p", "tests_worker.py"]
     environment:
       - CI
       - CODESCOPE_APIKEY
@@ -62,3 +62,20 @@ services:
       - redis
     depends_on:
       - demo-django-worker
+
+  tests-frontend:
+    build: .
+    image: codescope/demo-django:$COMMIT
+    command: ["codescope-run", "./manage.py", "test", "-p", "tests_frontend.py"]
+    environment:
+      - CI
+      - CODESCOPE_APIKEY
+      - CODESCOPE_ENVIRONMENT
+      - CODESCOPE_API_ENDPOINT
+      - CODESCOPE_SERVICE=frontend
+      - REDIS_HOST=redis
+      - CIRCLECI
+      - CIRCLE_BUILD_NUM
+      - CIRCLE_BUILD_URL
+    depends_on:
+      - demo-django-frontend
