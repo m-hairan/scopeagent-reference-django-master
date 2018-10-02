@@ -73,9 +73,10 @@ services:
       - CODESCOPE_ENVIRONMENT
       - CODESCOPE_API_ENDPOINT
       - CODESCOPE_SERVICE=frontend
+      - FRONTEND_HOST=demo-django-frontend
       - REDIS_HOST=redis
       - CIRCLECI
       - CIRCLE_BUILD_NUM
       - CIRCLE_BUILD_URL
-    depends_on:
+    links:
       - demo-django-frontend

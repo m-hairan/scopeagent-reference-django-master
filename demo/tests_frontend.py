@@ -15,7 +15,7 @@ class UnitTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super(UnitTests, cls).setUpClass()
-        cls.live_host = os.getenv('FRONTEND_HOST', 'localhost')
+        cls.live_host = "%s:%s" % (os.getenv('FRONTEND_HOST', 'localhost'), os.getenv('FRONTEND_PORT', '8000'))
 
     def test_ping_unit(self):
         logger.info("testing ping by using Django client")
