@@ -36,6 +36,6 @@ class UnitTests(TestCase):
 class LiveTests(codescope.testing.TestCase):
     def test_ping(self):
         logger.info("testing ping by direct remote function call to a frontend in a live environment")
-        status_code, content = remote_test_client('/ping')
+        status_code, content = remote_test_client('get', '/ping')
         self.assertEqual(status_code, 200)
         self.assertEqual(content, b"pong")
