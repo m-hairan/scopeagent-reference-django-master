@@ -1,5 +1,6 @@
 import logging
 
+import codescope
 from django.http import HttpResponse
 
 logger = logging.getLogger(__name__)
@@ -10,6 +11,7 @@ def ping(request):
     return HttpResponse("pong")
 
 
+@codescope.register()
 def ping_test():
     logger.debug("received testing request for ping view")
     response = ping(None)
