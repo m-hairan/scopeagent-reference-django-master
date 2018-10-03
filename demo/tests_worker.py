@@ -5,7 +5,7 @@ from unittest import skipUnless
 import codescope
 from django.test import TestCase
 
-from demo.tasks import ping
+from demo.tasks import ping, ping_test
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -26,4 +26,4 @@ class UnitTests(TestCase):
 class LiveTests(codescope.testing.TestCase):
     def test_ping_live(self):
         logger.info("testing ping by direct remote function call to a worker in a live environment")
-        self.assertEqual(ping(), "pong")
+        self.assertEqual(ping_test(), "pong")
