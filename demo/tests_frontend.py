@@ -6,7 +6,7 @@ import codescope
 import requests
 from django.test import TestCase
 
-from demo import remote_test_client
+from demo.views import ping_test
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -36,6 +36,6 @@ class UnitTests(TestCase):
 class LiveTests(codescope.testing.TestCase):
     def test_ping(self):
         logger.info("testing ping by direct remote function call to a frontend in a live environment")
-        status_code, content = remote_test_client('get', '/ping')
+        status_code, content = ping_test()
         self.assertEqual(status_code, 200)
         self.assertEqual(content, b"pong")
