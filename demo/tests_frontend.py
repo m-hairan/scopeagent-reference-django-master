@@ -6,7 +6,7 @@ import codescope
 import requests
 from django.test import TestCase
 
-from demo.views import remote_test_client
+from demo import remote_test_client
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
