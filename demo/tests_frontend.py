@@ -25,12 +25,6 @@ class UnitTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"pong")
 
-    def test_sync_hash_unit(self):
-        logger.info("testing sync_hash by using Django client")
-        response = self.client.get('/api/hash/test')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.content, b"9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08")
-
     @skipUnless(os.getenv('CI') is not None, "not in CI")
     def test_ping_integration(self):
         logger.info("testing ping by sending request to a frontend in a CI environment")
@@ -43,7 +37,7 @@ class UnitTests(TestCase):
         logger.info("testing sync_task by sending request to a frontend in a CI environment")
         response = requests.get('http://%s/api/hash/test' % self.live_host)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.content, b"9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08")
+        self.assertEqual(response.content, b"bc89c6f72947bcd2f783d342a46cafcfccfcc2e7884a34f1cfe8f55bad2d200e")
 
 
 class LiveTests(codescope.testing.TestCase):
@@ -57,4 +51,4 @@ class LiveTests(codescope.testing.TestCase):
         logger.info("testing sync_task by sending request to a frontend in a live environment")
         status_code, content = sync_hash_test("test")
         self.assertEqual(status_code, 200)
-        self.assertEqual(content, b"9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08")
+        self.assertEqual(content, b"bc89c6f72947bcd2f783d342a46cafcfccfcc2e7884a34f1cfe8f55bad2d200e")
