@@ -21,4 +21,5 @@ from demo import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ping', views.ping),
+    url(r'^api/hash/(\w+)', views.sync_hash),
 ]
