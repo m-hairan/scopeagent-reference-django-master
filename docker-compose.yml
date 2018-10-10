@@ -80,3 +80,4 @@ services:
       - CIRCLE_BUILD_URL
     links:
       - demo-django-frontend
+      - demo-django-worker
