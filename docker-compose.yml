@@ -28,7 +28,7 @@ services:
   demo-django-worker:
     build: .
     image: codescope/demo-django:$COMMIT
-    command: ["codescope-run", "celery", "-A", "demo", "worker", "-l", "info"]
+    command: ["codescope-run", "celery", "-A", "demo", "worker", "-P", "solo", "-l", "debug"]
     environment:
       - CI
       - CODESCOPE_APIKEY
