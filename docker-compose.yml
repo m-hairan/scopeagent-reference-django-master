@@ -18,7 +18,6 @@ services:
     environment:
       - CI
       - CODESCOPE_APIKEY
-      - CODESCOPE_ENVIRONMENT
       - CODESCOPE_API_ENDPOINT
       - CODESCOPE_SERVICE=frontend
       - REDIS_HOST=redis
@@ -32,7 +31,6 @@ services:
     environment:
       - CI
       - CODESCOPE_APIKEY
-      - CODESCOPE_ENVIRONMENT
       - CODESCOPE_API_ENDPOINT
       - CODESCOPE_SERVICE=worker
       - REDIS_HOST=redis
@@ -51,7 +49,6 @@ services:
     environment:
       - CI
       - CODESCOPE_APIKEY
-      - CODESCOPE_ENVIRONMENT
       - CODESCOPE_API_ENDPOINT
       - CODESCOPE_SERVICE=worker
       - REDIS_HOST=redis
@@ -70,7 +67,6 @@ services:
     environment:
       - CI
       - CODESCOPE_APIKEY
-      - CODESCOPE_ENVIRONMENT
       - CODESCOPE_API_ENDPOINT
       - CODESCOPE_SERVICE=frontend
       - FRONTEND_HOST=demo-django-frontend
