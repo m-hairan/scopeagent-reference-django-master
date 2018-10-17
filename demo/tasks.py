@@ -2,7 +2,6 @@ import hashlib
 import logging
 import time
 
-import codescope
 import opentracing
 
 from demo.celery import app
@@ -29,15 +28,3 @@ def slow_hash(value):
             loops += 1
     logger.info("calculated final hash: %s", value, extra={'value': value})
     return value
-
-
-@codescope.register()
-def ping_test():
-    logger.debug("received testing request for ping task")
-    return ping()
-
-
-@codescope.register()
-def slow_hash_test(value):
-    logger.debug("received testing request for slow_hash task")
-    return slow_hash(value)

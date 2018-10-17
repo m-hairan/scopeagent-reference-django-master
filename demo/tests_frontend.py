@@ -2,11 +2,8 @@ import logging
 import os
 from unittest import skipUnless
 
-import codescope
 import requests
 from django.test import TestCase
-
-from demo.views import ping_test, sync_hash_test
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -38,17 +35,3 @@ class UnitTests(TestCase):
         response = requests.get('http://%s/api/hash/test' % self.live_host)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"bc89c6f72947bcd2f783d342a46cafcfccfcc2e7884a34f1cfe8f55bad2d200e")
-
-
-class LiveTests(codescope.testing.TestCase):
-    def test_ping(self):
-        logger.info("testing ping by direct remote function call to a frontend in a live environment")
-        status_code, content = ping_test()
-        self.assertEqual(status_code, 200)
-        self.assertEqual(content, b"pong")
-
-    def test_sync_task(self):
-        logger.info("testing sync_task by sending request to a frontend in a live environment")
-        status_code, content = sync_hash_test("test")
-        self.assertEqual(status_code, 200)
-        self.assertEqual(content, b"bc89c6f72947bcd2f783d342a46cafcfccfcc2e7884a34f1cfe8f55bad2d200e")
