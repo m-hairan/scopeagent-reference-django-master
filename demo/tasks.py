@@ -24,7 +24,7 @@ def slow_hash(value):
             scope.span.set_tag('loop', loops)
             value = hashlib.sha256(value.encode('utf-8')).hexdigest()
             time.sleep(0.1)
-            logger.info("calculated intermediate hash: %s", value, extra={'value': value})
+            logger.debug("calculated intermediate hash: %s", value, extra={'value': value}, stack_info=True)
             loops += 1
     logger.info("calculated final hash: %s", value, extra={'value': value})
     return value

@@ -8,7 +8,7 @@ from demo.tasks import ping, slow_hash
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-logging.basicConfig()
+logging.basicConfig(level=logging.DEBUG)
 
 
 class UnitTests(TestCase):
