@@ -14,12 +14,12 @@ services:
   demo-django-frontend:
     build: .
     image: codescope/demo-django:$COMMIT
-    command: ["codescope-run", "gunicorn", "demo.wsgi", "-b", "0.0.0.0:8000"]
+    command: ["scope-run", "gunicorn", "demo.wsgi", "-b", "0.0.0.0:8000"]
     environment:
       - CI
-      - CODESCOPE_APIKEY
-      - CODESCOPE_API_ENDPOINT
-      - CODESCOPE_SERVICE=frontend
+      - SCOPE_APIKEY
+      - SCOPE_API_ENDPOINT
+      - SCOPE_SERVICE=frontend
       - REDIS_HOST=redis
     links:
       - redis
@@ -27,12 +27,12 @@ services:
   demo-django-worker:
     build: .
     image: codescope/demo-django:$COMMIT
-    command: ["codescope-run", "celery", "-A", "demo", "worker", "-P", "solo", "-l", "debug"]
+    command: ["scope-run", "celery", "-A", "demo", "worker", "-P", "solo", "-l", "debug"]
     environment:
       - CI
-      - CODESCOPE_APIKEY
-      - CODESCOPE_API_ENDPOINT
-      - CODESCOPE_SERVICE=worker
+      - SCOPE_APIKEY
+      - SCOPE_API_ENDPOINT
+      - SCOPE_SERVICE=worker
       - REDIS_HOST=redis
     links:
       - redis
@@ -45,12 +45,12 @@ services:
   tests-worker:
     build: .
     image: codescope/demo-django:$COMMIT
-    command: ["codescope-run", "./manage.py", "test", "-p", "tests_worker.py"]
+    command: ["scope-run", "./manage.py", "test", "-p", "tests_worker.py"]
     environment:
       - CI
-      - CODESCOPE_APIKEY
-      - CODESCOPE_API_ENDPOINT
-      - CODESCOPE_SERVICE=worker
+      - SCOPE_APIKEY
+      - SCOPE_API_ENDPOINT
+      - SCOPE_SERVICE=worker
       - REDIS_HOST=redis
       - CIRCLECI
       - CIRCLE_BUILD_NUM
@@ -63,12 +63,12 @@ services:
   tests-frontend:
     build: .
     image: codescope/demo-django:$COMMIT
-    command: ["codescope-run", "./manage.py", "test", "-p", "tests_frontend.py"]
+    command: ["scope-run", "./manage.py", "test", "-p", "tests_frontend.py"]
     environment:
       - CI
-      - CODESCOPE_APIKEY
-      - CODESCOPE_API_ENDPOINT
-      - CODESCOPE_SERVICE=frontend
+      - SCOPE_APIKEY
+      - SCOPE_API_ENDPOINT
+      - SCOPE_SERVICE=frontend
       - FRONTEND_HOST=demo-django-frontend
       - REDIS_HOST=redis
       - CIRCLECI

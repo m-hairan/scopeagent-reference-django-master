@@ -1,2 +1,2 @@
 # demo-django
-Demo Django application using CodeScope for cloud native testing
+Demo Django application using Scope for cloud native testing
