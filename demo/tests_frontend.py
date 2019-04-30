@@ -35,3 +35,6 @@ class UnitTests(TestCase):
         response = requests.get('http://%s/api/hash/test' % self.live_host)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"bc89c6f72947bcd2f783d342a46cafcfccfcc2e7884a34f1cfe8f55bad2d200e")
+
+    def test_unhandled_exception(self):
+        raise Exception("Something really bad happened")
