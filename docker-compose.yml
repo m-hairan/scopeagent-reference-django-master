@@ -1,16 +1,6 @@
 version: "3.4"
 
 services:
-  demo-django-ui:
-    build:
-      dockerfile: ui.Dockerfile
-      context: .
-    image: codescope/demo-django-ui:$COMMIT
-    ports:
-      - "8000:80"
-    links:
-      - demo-django-frontend
-
   demo-django-frontend:
     build: .
     image: codescope/demo-django:$COMMIT
