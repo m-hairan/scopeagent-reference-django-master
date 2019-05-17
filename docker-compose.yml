@@ -41,6 +41,9 @@ services:
       - SCOPE_SERVICE=worker
       - REDIS_HOST=redis
       - JENKINS_URL
+      - CIRCLECI
+      - CIRCLE_BUILD_NUM
+      - CIRCLE_BUILD_URL
       - BUILD_ID
       - BUILD_NUMBER
       - BUILD_URL
@@ -60,6 +63,9 @@ services:
       - SCOPE_SERVICE=frontend
       - FRONTEND_HOST=demo-django-frontend
       - REDIS_HOST=redis
+      - CIRCLECI
+      - CIRCLE_BUILD_NUM
+      - CIRCLE_BUILD_URL
       - JENKINS_URL
       - BUILD_ID
       - BUILD_NUMBER
